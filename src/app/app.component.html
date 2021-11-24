@@ -1,0 +1,97 @@
+<!-- <router-outlet></router-outlet> -->
+
+<div class="container p-3">
+  <h2 class="text-center">iTickets</h2>
+  <div class="request col-lg-8 offset-lg-2 col-12 p-2">
+    <form [formGroup]="requestForm" (ngSubmit)="onSubmit(requestForm)">
+      <mat-form-field appearance="fill">
+        <mat-label>Количество километров</mat-label>
+        <input matInput [formControlName]="'distance'" type="number" required>
+        <mat-error *ngIf="requestForm.get('distance').invalid">
+          <span translate>Пожалуйста, заполните поле</span>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Возраст</mat-label>
+        <input matInput [formControlName]="'age'" type="number" required>
+        <mat-error *ngIf="requestForm.get('age').invalid">
+          <span translate>Пожалуйста, заполните поле</span>
+        </mat-error>
+      </mat-form-field>
+      <br>
+      <mat-form-field appearance="fill">
+        <mat-label>Вес багажа, кг</mat-label>
+        <input matInput [formControlName]="'baggage'" type="number" required>
+        <mat-error *ngIf="requestForm.get('baggage').invalid">
+          <span translate>Пожалуйста, заполните поле</span>
+        </mat-error>
+      </mat-form-field>
+      <br>
+
+      <div class="w-100 justify-content-end">
+        <button mat-raised-button color="primary" type="submit">
+          Рассчитать
+        </button>
+      </div>
+    </form>
+
+  </div>
+
+
+  <div *ngIf="offer">
+    <mat-divider></mat-divider>
+    <div class="result col-lg-8 offset-lg-2 col-12 p-2">
+      <h4 class="my-3 text-center">Предложения</h4>
+      <div *ngFor="let el of total_result">
+        <!-- <div *ngFor="let e of el.aeroflot"></div> -->
+        {{el.econom}}
+      </div>
+      {{total_result['aeroflot']['econom']}}
+
+      <table class="table table-hover" *ngFor="let el of total_result">
+        <thead>
+          <tr class="table-primary">
+            <th colspan="2">Аэрофлот</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let el of total_result">
+            <td>Эконом</td>
+            <td>{{el.econom}}</td>
+          </tr>
+          <tr>
+            <td>Продвинутый</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Люкс</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr class="table-primary">
+            <th colspan="2">РЖД</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Эконом</td>
+            <td>00</td>
+          </tr>
+          <tr>
+            <td>Продвинутый</td>
+            <td>00</td>
+          </tr>
+          <tr>
+            <td>Люкс</td>
+            <td>00</td>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
