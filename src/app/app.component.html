@@ -1,20 +1,11 @@
-<!-- <router-outlet></router-outlet> -->
 
 <div class="container p-3">
-  <h2 class="text-center">iTickets</h2>
-  <!-- {{test_array}}
-
-  <div *ngFor="let el of test_array">
-    {{l.econom}}
-    <div *ngFor="let l of el">
-    {{l.econom}}
-    </div>
-  </div> -->
+  <h2 class="text-center">{{title}}</h2>
   <div class="request col-lg-8 offset-lg-2 col-12 p-2">
     <form [formGroup]="requestForm" (ngSubmit)="onSubmit(requestForm)">
       <mat-form-field appearance="fill">
         <mat-label>Количество километров</mat-label>
-        <input matInput [formControlName]="'distance'" type="number" required>
+        <input matInput [formControlName]="'distance'" type="number" min="0" required>
         <mat-error *ngIf="requestForm.get('distance').invalid">
           <span translate>Пожалуйста, заполните поле</span>
         </mat-error>
@@ -22,7 +13,7 @@
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Возраст</mat-label>
-        <input matInput [formControlName]="'age'" type="number" required>
+        <input matInput [formControlName]="'age'" type="number" min="0" required>
         <mat-error *ngIf="requestForm.get('age').invalid">
           <span translate>Пожалуйста, заполните поле</span>
         </mat-error>
@@ -30,7 +21,7 @@
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Вес багажа, кг</mat-label>
-        <input matInput [formControlName]="'baggage'" type="number" required>
+        <input matInput [formControlName]="'baggage'" type="number" min="0" required>
         <mat-error *ngIf="requestForm.get('baggage').invalid">
           <span translate>Пожалуйста, заполните поле</span>
         </mat-error>
@@ -47,12 +38,12 @@
   </div>
 
 
-  <div *ngIf="offer && total_result">
+  <div *ngIf="offer">
     <mat-divider></mat-divider>
     <div class="result col-lg-8 offset-lg-2 col-12 p-2">
       <h4 class="my-3 text-center">Предложения</h4>
 
-      <div *ngFor="let el2 of total_array; let i = index">
+      <div *ngFor="let element of total_array; let i = index">
         <table class="table table-hover">
           <thead>
             <tr class="table-primary">
@@ -61,65 +52,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngIf = 'element.econom != null'>
               <td>Эконом</td>
-              <td>{{el2.econom}}</td>
+              <td>{{element.econom | number : '.0-2'}}</td>
             </tr>
-            <tr>
+            <tr *ngIf = 'element.premium != null'>
               <td>Продвинутый</td>
-              <td>{{el2.premium}}</td>
+              <td>{{element.premium | number : '.0-2'}}</td>
             </tr>
-            <tr>
+            <tr *ngIf = 'element.lux != null'>
               <td>Люкс</td>
-              <td>{{el2.lux}}</td>
+              <td>{{element.lux | number : '.0-2'}}</td>
             </tr>
           </tbody>
           
         </table>
       </div>
-
-      <!-- {{total_result['aeroflot']['econom']}} -->
-      <!-- <table class="table table-hover" >
-        <thead>
-          <tr class="table-primary">
-            <th colspan="2">Аэрофлот</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr >
-            <td>Эконом</td>
-            <td>{{total_result['aeroflot']['econom']}}</td>
-          </tr>
-          <tr>
-            <td>Продвинутый</td>
-            <td>{{total_result['aeroflot']['premium']}}</td>
-          </tr>
-          <tr>
-            <td>Люкс</td>
-            <td>{{total_result['aeroflot']['lux']}}</td>
-          </tr>
-        </tbody>
-        <thead>
-          <tr class="table-primary">
-            <th colspan="2">РЖД</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Эконом</td>
-            <td>{{total_result['rjd']['econom']}}</td>
-          </tr>
-          <tr>
-            <td>Продвинутый</td>
-            <td>{{total_result['rjd']['premium']}}</td>
-          </tr>
-          <tr>
-            <td>Люкс</td>
-            <td>{{total_result['rjd']['lux']}}</td>
-          </tr>
-        </tbody>
-      </table> -->
-
     </div>
 
   </div>
