@@ -2,6 +2,14 @@
 
 <div class="container p-3">
   <h2 class="text-center">iTickets</h2>
+  <!-- {{test_array}}
+
+  <div *ngFor="let el of test_array">
+    {{l.econom}}
+    <div *ngFor="let l of el">
+    {{l.econom}}
+    </div>
+  </div> -->
   <div class="request col-lg-8 offset-lg-2 col-12 p-2">
     <form [formGroup]="requestForm" (ngSubmit)="onSubmit(requestForm)">
       <mat-form-field appearance="fill">
@@ -10,7 +18,7 @@
         <mat-error *ngIf="requestForm.get('distance').invalid">
           <span translate>Пожалуйста, заполните поле</span>
         </mat-error>
-      </mat-form-field> 
+      </mat-form-field>
       <br>
       <mat-form-field appearance="fill">
         <mat-label>Возраст</mat-label>
@@ -39,34 +47,56 @@
   </div>
 
 
-  <div *ngIf="offer">
+  <div *ngIf="offer && total_result">
     <mat-divider></mat-divider>
     <div class="result col-lg-8 offset-lg-2 col-12 p-2">
       <h4 class="my-3 text-center">Предложения</h4>
-      <div *ngFor="let el of total_result">
-        <!-- <div *ngFor="let e of el.aeroflot"></div> -->
-        {{el.econom}}
-      </div>
-      {{total_result['aeroflot']['econom']}}
 
-      <table class="table table-hover" *ngFor="let el of total_result">
+      <div *ngFor="let el2 of total_array; let i = index">
+        <table class="table table-hover">
+          <thead>
+            <tr class="table-primary">
+              <th colspan="2" *ngIf = 'i == 0'>Аэрофлот</th>
+              <th colspan="2" *ngIf = 'i == 1'>РЖД</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Эконом</td>
+              <td>{{el2.econom}}</td>
+            </tr>
+            <tr>
+              <td>Продвинутый</td>
+              <td>{{el2.premium}}</td>
+            </tr>
+            <tr>
+              <td>Люкс</td>
+              <td>{{el2.lux}}</td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
+
+      <!-- {{total_result['aeroflot']['econom']}} -->
+      <!-- <table class="table table-hover" >
         <thead>
           <tr class="table-primary">
             <th colspan="2">Аэрофлот</th>
-          </tr> 
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let el of total_result">
+          <tr >
             <td>Эконом</td>
-            <td>{{el.econom}}</td>
+            <td>{{total_result['aeroflot']['econom']}}</td>
           </tr>
           <tr>
             <td>Продвинутый</td>
-            <td>0</td>
+            <td>{{total_result['aeroflot']['premium']}}</td>
           </tr>
           <tr>
             <td>Люкс</td>
-            <td>0</td>
+            <td>{{total_result['aeroflot']['lux']}}</td>
           </tr>
         </tbody>
         <thead>
@@ -77,18 +107,18 @@
         <tbody>
           <tr>
             <td>Эконом</td>
-            <td>00</td>
+            <td>{{total_result['rjd']['econom']}}</td>
           </tr>
           <tr>
             <td>Продвинутый</td>
-            <td>00</td>
+            <td>{{total_result['rjd']['premium']}}</td>
           </tr>
           <tr>
             <td>Люкс</td>
-            <td>00</td>
+            <td>{{total_result['rjd']['lux']}}</td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
 
     </div>
 

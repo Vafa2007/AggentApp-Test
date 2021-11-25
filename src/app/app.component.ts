@@ -14,7 +14,8 @@ export class AppComponent {
   requestForm: FormGroup;
   // company_result: Result = { econom: null, premium: null, lux: null };
   total_result: Companies = { aeroflot: null, rjd: null};
-  
+  total_array: Result[] = [];
+
   companies_array = ['aeroflot', 'rjd'];
   conditions_array = [{
       aeroflot: [
@@ -45,7 +46,7 @@ export class AppComponent {
     let _distance = formValue.get('distance').value;
     let _age = formValue.get('age').value;
     let _baggage = formValue.get('baggage').value;
-    
+    this.total_array = [];
     this.process(_distance, _age, _baggage)
     this.offer = true;
     console.log(this.total_result)
@@ -95,12 +96,16 @@ export class AppComponent {
         }
         
         company_result[variant['class']] = result;
-        // console.log(company_result)
+        console.log(company_result)
+        console.log(company_result['econom'])
         // console.log(this.total_result)
       }
       console.log(this.total_result)
-      this.total_result[this.companies_array[k]] = company_result;      
+      this.total_result[this.companies_array[k]] = company_result; 
+
+      this.total_array.push(company_result); 
       console.log(this.total_result)
+      console.log(this.total_array)
            
     }
   }
@@ -113,8 +118,8 @@ interface Result {
 }
 
 interface Companies {
-  aeroflot: [];
-  rjd: [];
+  aeroflot: any;
+  rjd: any;
 }
 
 
